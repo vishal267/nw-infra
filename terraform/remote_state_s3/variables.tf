@@ -7,7 +7,7 @@ variable "region_name" {
 variable "bucket_name" {
   description = "bucket name for terraform state files"
   type        = string
-  default     = "nwk8s-tf"
+  default     = "nwwk8s-tf"
 }
 
 variable "environment" {
