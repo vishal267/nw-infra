@@ -31,3 +31,38 @@ wget https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
 tar xvf helm-v3.8.0-linux-amd64.tar.gz; sudo mv linux-amd64/helm /usr/local/bin
 helm version
 
+Steps -
+
+
+Step 1 - create s3 bucket 
+
+cd nw-infra/terraform/remote_state_s3
+
+terraform init
+terraform apply 
+
+Step 2 - Use S3 backend and export the Statefile to s3 bucket.
+
+Create backend.tf and export 
+
+terraform {
+  backend "s3" {
+	bucket = "dtk8s-tf"
+	key	= "prod/remote_bucket_s3"
+	region = "ap-south-1"
+  }
+}
+
+terraform init 
+terraform apply 
+
+Step 3 - Run terragrunt to apply modules (VPC,nw_cluster,eks_node_group,k8s-manifests)
+
+cd terragrunt/environments/prod
+
+terragrunt apply
+
+Jenkins URL - 
+http://jenkins.thefinisher.xyz
+username - admin
+
